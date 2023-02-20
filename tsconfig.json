@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "ES2017",
+		"typeRoots": ["./node_modules/@types", "./src/types"],
+		"module": "CommonJS",
+		"rootDir": "./src",
+		"allowJs": true,
+		"outDir": "./dist",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true
+	},
+	"exclude": ["./**/*.js"]
+}
