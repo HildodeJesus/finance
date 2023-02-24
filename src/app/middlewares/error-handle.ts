@@ -6,7 +6,7 @@ import {
 } from "express";
 import { ValidationError } from "sequelize";
 
-import logger from "../config/logger";
+import logger from "../../config/logger";
 import { CustomApiError } from "../error/custom-error";
 
 export default function (

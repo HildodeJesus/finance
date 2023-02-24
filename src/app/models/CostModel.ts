@@ -4,25 +4,22 @@ import {
 	InferCreationAttributes,
 	DataTypes,
 	ForeignKey,
-	Association,
 } from "sequelize";
 
 import sequelize from "../database";
-import { User } from "./UserModel";
 
-export class Gain extends Model<
-	InferAttributes<Gain>,
-	InferCreationAttributes<Gain>
+export class Cost extends Model<
+	InferAttributes<Cost>,
+	InferCreationAttributes<Cost>
 > {
 	declare id: string;
 	declare name: string;
 	declare value: number;
 	declare fixed: boolean;
 	declare userId: ForeignKey<string>;
-	declare static associate: Association<Gain, User>;
 }
 
-Gain.init(
+Cost.init(
 	{
 		id: {
 			type: DataTypes.STRING,
@@ -46,5 +43,7 @@ Gain.init(
 			allowNull: false,
 		},
 	},
-	{ sequelize, tableName: "gains" }
+	{ sequelize, tableName: "costs" }
 );
+
+// Cost.belongsTo(User, { foreignKey: "user_id" });

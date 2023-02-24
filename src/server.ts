@@ -2,7 +2,10 @@ import app from "./app";
 import logger from "./config/logger";
 
 const PORT = process.env.PORT || 4000;
-import sequelize from "./database";
+import sequelize from "./app/database";
+import Queue from "./app/lib/Queue";
+
+new Queue().process();
 
 (async function () {
 	try {

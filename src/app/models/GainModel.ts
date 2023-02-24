@@ -7,11 +7,10 @@ import {
 } from "sequelize";
 
 import sequelize from "../database";
-import { User } from "./UserModel";
 
-export class Cost extends Model<
-	InferAttributes<Cost>,
-	InferCreationAttributes<Cost>
+export class Gain extends Model<
+	InferAttributes<Gain>,
+	InferCreationAttributes<Gain>
 > {
 	declare id: string;
 	declare name: string;
@@ -20,7 +19,7 @@ export class Cost extends Model<
 	declare userId: ForeignKey<string>;
 }
 
-Cost.init(
+Gain.init(
 	{
 		id: {
 			type: DataTypes.STRING,
@@ -44,7 +43,5 @@ Cost.init(
 			allowNull: false,
 		},
 	},
-	{ sequelize, tableName: "costs" }
+	{ sequelize, tableName: "gains" }
 );
-
-// Cost.belongsTo(User, { foreignKey: "user_id" });
