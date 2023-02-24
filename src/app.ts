@@ -6,11 +6,11 @@ import helmet from "helmet";
 
 const app = express();
 
-import notFound from "./middlewares/not-found";
-import errorHandle from "./middlewares/error-handle";
-import homeRoutes from "./routes/homeRoutes";
-import userRoutes from "./routes/userRoutes";
-import tokenRoutes from "./routes/tokenRoutes";
+import notFound from "./app/middlewares/not-found";
+import errorHandle from "./app/middlewares/error-handle";
+import homeRoutes from "./app/routes/homeRoutes";
+import userRoutes from "./app/routes/userRoutes";
+import tokenRoutes from "./app/routes/tokenRoutes";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
