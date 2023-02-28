@@ -1,15 +1,13 @@
 import { NextFunction as Next, Request, Response } from "express";
 import { v4 } from "uuid";
-import Queue from "../lib/Queue";
 
-import { User as UserModel } from "../models/UserModel";
+import Queue from "../lib/Queue";
+import UserRepo from "../repositories/UserRepo";
 
 class UserController {
 	async index(req: Request, res: Response, next: Next) {
 		try {
-			const users = await UserModel.findAll({
-				attributes: ["id", "name", "email"],
-			});
+			const users = await UserRepo.getAll();
 
 			res.status(200).json({ users });
 		} catch (err) {
@@ -17,23 +15,22 @@ class UserController {
 		}
 	}
 
-	// async show(req: Request, res: Response, next: Next) {
-	// 	try {
-	// 		const { id } = req.params;
-	// 		const user = await UserModel.findByPk(id, {
-	// 			attributes: ["id", "name", "email"],
-	// 		});
+	async show(req: Request, res: Response, next: Next) {
+		try {
+			const { id: userId } = req.params;
 
-	// 		res.status(200).json({ user });
-	// 	} catch (err) {
-	// 		next(err);
-	// 	}
-	// }
+			const user = await UserRepo.getById(userId);
+
+			res.status(200).json({ user });
+		} catch (err) {
+			next(err);
+		}
+	}
 
 	async delete(req: Request, res: Response, next: Next) {
 		try {
-			const user = await UserModel.findByPk(req.userId);
-			await user.destroy();
+			const userId = req.userId;
+			await UserRepo.delete(userId);
 
 			res.status(200).json({ msg: "Deletado com sucesso" });
 		} catch (err) {
@@ -43,10 +40,10 @@ class UserController {
 
 	async update(req: Request, res: Response, next: Next) {
 		try {
-			const userUpdated = req.body;
+			const userId = req.userId;
+			const userUpdated = { ...req.body };
 
-			const user = await UserModel.findByPk(req.userId);
-			await user.update(userUpdated);
+			await UserRepo.update(userId, userUpdated);
 
 			res.status(200).json({ msg: "Atualizado com sucesso!" });
 		} catch (err) {
@@ -56,12 +53,15 @@ class UserController {
 
 	async create(req: Request, res: Response, next: Next) {
 		try {
+			const body = req.body;
 			const user = {
-				...req.body,
 				id: v4(),
+				name: body.name,
+				email: body.email,
+				password: body.password,
 			};
 
-			await UserModel.create(user);
+			await UserRepo.create(user);
 
 			await new Queue().add("RegistrationEmail", {
 				name: user.name,

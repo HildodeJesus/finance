@@ -1,6 +1,6 @@
 import Bull from "bull";
-import logger from "../config/logger";
-import redisConfig from "../config/redis";
+import logger from "../../config/logger";
+import redisConfig from "../../config/redis";
 
 import * as jobs from "../jobs";
 
