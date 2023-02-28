@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const databaseConfig = {
 	database: process.env.DATABASE,
 	username: process.env.DATABASE_USERNAME,
@@ -17,4 +19,4 @@ const databaseConfig = {
 	timezone: "-03:00",
 };
 
-export default databaseConfig;
+module.exports = databaseConfig;

@@ -7,8 +7,8 @@ import {
 import bcrypt from "bcrypt";
 
 import sequelize from "../database";
-import { Cost } from "./CostModel";
-import { Gain } from "./GainModel";
+import { Income } from "./IncomeModel";
+import { Expense } from "./ExpenseModel";
 
 export class User extends Model<
 	InferAttributes<User>,
@@ -60,5 +60,5 @@ User.beforeSave(user => {
 	user.password = hashedPassword;
 });
 
-User.hasMany(Cost, { foreignKey: "user_id" });
-User.hasMany(Gain, { foreignKey: "user_id" });
+User.hasMany(Income, { foreignKey: "user_id" });
+User.hasMany(Expense, { foreignKey: "user_id" });

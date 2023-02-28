@@ -15,7 +15,7 @@ export default {
 			to: email,
 			subject: "Bem Vindo!",
 			html: `<h1>Seja bem vindo a Finance, ${name}</h1><p>O seu acesso a conta já foi liberado https://sitetest.com.br</p>`,
-			text: `Seja bem vindo a Finance, ${name}O seu acesso a conta já foi liberado https://sitetest.com.br`,
+			text: `Seja bem vindo a Finance, ${name}O seu acesso a conta já foi liberado <a href="https://youtube.com">youtube</a>`,
 		});
 	},
 };
