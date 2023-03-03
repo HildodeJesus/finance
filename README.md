@@ -4,7 +4,7 @@
 This Api saves users' expenses and earnings, who can also view them. This api must be consumed by some frontend application, where the user can insert and view the data.
 ## Tech Stack
 
-**Client:** Nothing
+**Client:** *Nothing*
 
 **Server:** Node, Express, MariaDB
 
@@ -29,18 +29,22 @@ Install dependencies
   npm install
 ```
 
-Start the server
+Start the server in development mode
 
 ```bash
   npm run dev
 ```
 
+Start the server in production mode
 
+```bash
+  npm run start
+```
 ## API Reference
 
 ### Create a new user
 
-Algumas endpoints da aplicação só pode ser acessada através de um usuário logado, portando, crie um usuário a seguinte rota. Os tokens são gerados por outra rota.
+Create your user through that endpoint. The email and password you use here, will be used to obtain the token later
 
 ```http
   POST /api/users
@@ -52,13 +56,31 @@ Algumas endpoints da aplicação só pode ser acessada através de um usuário l
 | `email` | `string` | **Required**. It must be a valid email|
 | `password` | `string` | **Required**. It must contain 6 characters at leasts |
 
+#### Response: (200 OK)
+```http 
+{
+    "msg": "Usuário criado com sucesso"
+}
+```
+
+#### Response: (400 BAD REQUEST)
+```http 
+{
+    "errors": [
+        "O email é inválido"
+    ]
+}
+```
+
 ### Get all users
+
+Get all users created
 
 ```http
   GET /api/users/
 ```
 
-#### Response:
+#### Response (200 OK):
 
 ```code 
 {
@@ -82,4 +104,30 @@ Algumas endpoints da aplicação só pode ser acessada através de um usuário l
 } 
 ```
 
+### Delete User
 
+To make the api safer, therefore, a user's deletion can only be done by the user himself. It must have a token JWT
+
+```http
+  DELETE /api/users/
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `authorizathion` | `header` | **Required**. Token JWT |
+
+#### Response: (200 OK)
+
+```code 
+{
+    "msg": "Deletado com sucesso"
+}
+```
+
+#### Response: (400 OK)
+
+```code 
+{
+    "msg": "Usuário não existe!"
+}
+```
